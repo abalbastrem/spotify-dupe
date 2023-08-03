@@ -8,15 +8,24 @@ interface PlaylistsSidebarProps {}
 
 export const PlaylistsSidebar: FC<PlaylistsSidebarProps> = () => {
   const {
-    states: { playlists },
+    states: { playlists, loading },
   } = usePlaylistsContext();
   const playlistsArray = Object.values(playlists).flat();
+  const isLoading = loading;
 
   return (
-    <div className="container">
-      {playlistsArray.map((song: Song) => (
-        <span key={song.name}>{song.name}</span>
-      ))}
-    </div>
+    <>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="container">
+          {playlistsArray.map((song: Song) => (
+            <span key={song.name}>{song.name}</span>
+            ))
+          }
+        </div>
+      )}
+    </>
   );
+  
 };
